@@ -1,0 +1,41 @@
+{
+  "name": "escpos-graphql-api",
+  "version": "0.1.0",
+  "description": "escpos api based on graphql",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel src --out-dir dist",
+    "prepublish": "npm run babel",
+    "start": "babel-node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MLKiiwy/escpos-graphql-api.git"
+  },
+  "keywords": [
+    "escpos",
+    "graphql",
+    "api"
+  ],
+  "author": "Mikael Labrut",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MLKiiwy/escpos-graphql-api/issues"
+  },
+  "homepage": "https://github.com/MLKiiwy/escpos-graphql-api#readme",
+  "dependencies": {
+    "apollo-server": "^0.3.3",
+    "escpos": "^2.4.1",
+    "graphql": "^0.9.6",
+    "graphql-server-hapi": "^0.7.2",
+    "graphql-tools": "^0.11.0",
+    "hapi": "^16.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-plugin-inline-import": "^2.0.4",
+    "babel-preset-env": "^1.4.0"
+  }
+}

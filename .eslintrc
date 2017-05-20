@@ -1,0 +1,32 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "sourceType": "script"
+    },
+    "rules": {
+        "indent": ["error", 4, {
+            "SwitchCase": 1
+        }],
+        "camelcase": ["error", {
+            properties: "never"
+        }],
+        "max-len": [1, 121, {
+            "ignoreUrls": true
+        }],
+        "max-nested-callbacks": [1, 5],
+        "valid-jsdoc": ["error", {
+            "requireReturnDescription": false,
+            "requireParamDescription": false
+        }],
+        "strict": ["error", "global"],
+        "object-shorthand": ["error", "consistent"],
+        "comma-dangle": ["warn", {
+            "arrays": "always-multiline",
+            "objects": "always-multiline"
+        }]
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "presets": ["env"],
+    "plugins": [
+        "babel-plugin-inline-import"
+    ],
+    "sourceMaps": "both"
+}
