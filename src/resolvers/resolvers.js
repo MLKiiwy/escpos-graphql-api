@@ -23,7 +23,7 @@ const resolvers = () => ({
                     .align('ct')
                     .style('bu')
                     .size(1, 1)
-                    .text('args.message');
+                    .text('args.message').cut();
             });
             return args;
         },
