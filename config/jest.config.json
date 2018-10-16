@@ -1,0 +1,5 @@
+{
+  "rootDir": "../src",
+  "reporters": ["default", "jest-junit"],
+  "coverageDirectory": "../coverage"
+}

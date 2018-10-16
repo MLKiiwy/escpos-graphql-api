@@ -1,7 +1,9 @@
 {
-    "presets": ["env"],
-    "plugins": [
-        "babel-plugin-inline-import"
-    ],
-    "sourceMaps": "both"
+  "presets": [
+    "env"
+  ],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ]
 }

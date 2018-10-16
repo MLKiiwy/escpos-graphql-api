@@ -1,46 +1,34 @@
-import hapi from 'hapi';
-import {apolloHapi, graphiqlHapi} from 'apollo-server';
-// import Message from 'models/message';
-import graphqlSchema from '../config/graphql/schema.graphql';
-import createResolvers from './resolvers/resolvers';
-import {makeExecutableSchema} from 'graphql-tools';
+import { ApolloServer, gql } from 'apollo-server';
+import resolvers from './resolvers/resolvers';
 
-const server = new hapi.Server();
+const typeDefs = gql`
+  type Message {
+    id: ID!
+    message: String!
+  }
 
-server.connection({
-    host: '0.0.0.0',
-    port: 8080,
-});
+  type Query {
+    get(id: ID!): Message
+  }
 
-const executableSchema = makeExecutableSchema({
-    typeDefs: [graphqlSchema],
-    resolvers: createResolvers(),
-});
+  type Mutation {
+    createMessage(message: String!): Message
+  }
 
-server.register({
-    register: apolloHapi,
-    options: {
-        path: '/graphql',
-        apolloOptions: () => ({
-            pretty: true,
-            schema: executableSchema,
-        }),
-    },
-});
+  schema {
+    mutation: Mutation
+    query: Query
+  }
+`;
 
-server.register({
-    register: graphiqlHapi,
-    options: {
-        path: '/graphiql',
-        graphiqlOptions: {
-            endpointURL: '/graphql',
-        },
-    },
-});
+// In the most basic sense, the ApolloServer can be started
+// by passing type definitions (typeDefs) and the resolvers
+// responsible for fetching the data for those types.
+const server = new ApolloServer({ typeDefs, resolvers });
 
-server.start((err) => {
-    if (err) {
-        throw err;
-    }
-    console.log(`Server running at: ${server.info.uri}`);
+// This `listen` method launches a web-server.  Existing apps
+// can utilize middleware options, which we'll discuss later.
+server.listen().then(({ url }) => {
+  // eslint-disable-next-line no-console
+  console.log(`🚀  Server ready at ${url}`);
 });

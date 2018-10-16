@@ -1,0 +1,100 @@
+version: 2
+jobs:
+  install:
+    docker:
+      - image: circleci/node:carbon
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+      - run:
+          name: configuring npm registry
+          command: |
+            [[ -z "$NPM_TOKEN" ]] && echo "NPM_TOKEN not set" && exit 1
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+            yarn config set registry http://registry.npmjs.org/
+      - run:
+          command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+  test:
+    docker:
+      - image: circleci/node:carbon
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run:
+          name: Prep test environment
+          command: |
+            mkdir -p ./test-results/jest
+            mkdir -p ./test-results/eslint
+      - run:
+          name: Run unit tests
+          environment:
+            JEST_JUNIT_OUTPUT: ./test-results/jest/junit.xml
+          command: yarn test --ci --reporters=default --reporters=jest-junit --coverage
+      - run:
+          name: Lint code
+          command: yarn -s lint -f junit > ./test-results/eslint/junit.xml
+      - store_artifacts:
+          path: coverage
+      - store_test_results:
+          path: test-results
+
+  build:
+    docker:
+      - image: circleci/node:carbon
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run: yarn build
+      - persist_to_workspace:
+          root: ./dist
+          paths:
+            - ./*
+
+  release:
+    docker:
+      - image: circleci/node:carbon
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run:
+          name: Release the project
+          command: yarn release
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - install:
+          context: org-global
+      - test:
+          requires:
+            - install
+      - build:
+          requires:
+            - install
+      - release:
+          context: org-global
+          requires:
+            - test
+            - build

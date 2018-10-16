@@ -1,0 +1,51 @@
+Ticket extends CreativeWorks (extends message ?)
+- Text
+- potentialAction : SendAction
+
+Person :
+- name
++ password
+
+WriteATicket extends WriteAction
+- autoSend : 
+
+WriteAction :
+- inLanguage
+
+Action :
+- name
+- result (eg Ticket)
+- agent
+- startTime
+- instrument : Apps used to write
+- actionStatus
+
+SendAction :
+- recipient : TicketPrinter
+
+TicketPrinter extends Audience / 
+- geographicArea
+- autoPrint : 
+
+ActionStatusType :
+- name
+
+ReceiveAction : 
+- sender : Person (ie User)
+
+CommunicateAction ????
+
+---
+
+OAuth2 objects (related to a person)
+
+--
+To create a ticket : 
+WriteAction
+
+To update a ticket : 
+WriteAction on a existing Ticket
+
+To delete a ticket : 
+DELETE on ticket
+
