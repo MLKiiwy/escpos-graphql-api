@@ -44,6 +44,7 @@
   "dependencies": {
     "apollo-server": "^2.1.0",
     "escpos": "^2.4.9",
+    "escpos-print": "^2.0.0",
     "graphql": "^14.0.2",
     "graphql-tools": "^0.11.0"
   },
