@@ -2,22 +2,18 @@ import { ApolloServer, gql } from 'apollo-server';
 import resolvers from './resolvers/resolvers';
 
 const typeDefs = gql`
+  type Query {
+    "Test query"
+    ping: String
+  }
+
   type Message {
     id: ID!
     message: String!
   }
 
-  type Query {
-    get(id: ID!): Message
-  }
-
   type Mutation {
-    createMessage(message: String!): Message
-  }
-
-  schema {
-    mutation: Mutation
-    query: Query
+    print(message: String!): Message
   }
 `;
 

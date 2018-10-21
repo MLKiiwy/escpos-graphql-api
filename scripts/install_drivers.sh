@@ -8,7 +8,3 @@ git clone https://github.com/klirichek/zj-58.git
 cd zj-58/
 make
 sudo ./install
-
-# Install printer and execute http admin for cups
-sudo usermod -a -G lpadmin pi
-sudo cupsctl --remote-admin
