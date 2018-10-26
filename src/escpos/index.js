@@ -1,15 +1,37 @@
 import { device, printer } from './printer';
+import { Image } from 'escpos';
+import path from 'path';
 
-const print = str => {
-  device.open(() => {
-    printer
-      .font('a')
-      .align('ct')
-      .style('bu')
-      .size(1, 1)
-      .text(str)
-      .cut()
-      .close();
+const getImage = async path => {
+  return new Promise((resolves, reject) => {
+    Image.load(path, image => {
+      if (image.toBitmap) {
+        resolves(image);
+      } else {
+        reject(image);
+      }
+    });
+  });
+};
+
+const printImage = async (printer, filepath) => {
+  const image = await getImage(path.resolve(filepath));
+  printer.image(image);
+};
+
+const print = async () => {
+  return new Promise((resolves, reject) => {
+    device.open(async () => {
+      try {
+        printer.style('NORMAL');
+        printImage(printer, './screenshot.png');
+        printer.close();
+        resolves(true);
+      } catch (err) {
+        printer.close();
+        reject(false);
+      }
+    });
   });
 };
 

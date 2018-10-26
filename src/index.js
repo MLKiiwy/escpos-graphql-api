@@ -1,19 +1,11 @@
 import { ApolloServer, gql } from 'apollo-server';
 import resolvers from './resolvers/resolvers';
+import 'babel-polyfill';
 
 const typeDefs = gql`
   type Query {
-    "Test query"
-    ping: String
-  }
-
-  type Message {
-    id: ID!
-    message: String!
-  }
-
-  type Mutation {
-    print(message: String!): Message
+    "Print test"
+    print: Boolean
   }
 `;
 
