@@ -1,5 +1,18 @@
 {
   "rootDir": "../src",
+  "moduleNameMapper": {
+    "\\.(css|scss|svg)$": "<rootDir>/test/mock-import.js"
+  },
+  "transformIgnorePatterns": ["node_modules/(?!(@usabilla/react-stylabilla)/)"],
+  "setupFiles": [
+    "<rootDir>/test/shim.js",
+    "<rootDir>/test/enzyme-setup.js"
+  ],
   "reporters": ["default", "jest-junit"],
-  "coverageDirectory": "../coverage"
+  "coverageDirectory": "../coverage",
+  "testURL": "http://localhost/",
+  "snapshotSerializers": ["enzyme-to-json/serializer"],
+  "testMatch": [
+    "**/*.steps.js"
+  ]
 }
