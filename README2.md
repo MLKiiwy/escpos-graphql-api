@@ -1,8 +1,3 @@
-# UPrinter
-
-UPrinter transform your Usabilla (Usabilla for web) survey campaign into a physical form, on a receipt paper.
-For that we use a classic thermal printer (Model ZJ-58) connected on USB.
-
 ## Usage
 
 Start the ticket generator server: 

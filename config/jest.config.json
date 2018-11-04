@@ -3,7 +3,7 @@
   "moduleNameMapper": {
     "\\.(css|scss|svg)$": "<rootDir>/test/mock-import.js"
   },
-  "transformIgnorePatterns": ["node_modules/(?!(@usabilla/react-stylabilla)/)"],
+  "transformIgnorePatterns": ["node_modules/"],
   "setupFiles": [
     "<rootDir>/test/shim.js",
     "<rootDir>/test/enzyme-setup.js"
