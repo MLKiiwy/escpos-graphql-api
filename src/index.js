@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App/App';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Ticket from './containers/Ticket/Ticket';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 import './index.scss';
 
 ReactDOM.render(
   <ErrorBoundary>
-    <App />
+    <Router>
+      <Route path="/:id" component={Ticket} />
+    </Router>
   </ErrorBoundary>,
   document.getElementById('root')
 );
