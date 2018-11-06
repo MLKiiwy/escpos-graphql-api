@@ -39,12 +39,11 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://' + HOST + ':' + PORT,
     'webpack/hot/only-dev-server',
-    './src/index.js', // App entry point
+    './src/app.js', // App entry point
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'app.js',
-    publicPath: '/',
   },
   module: {
     rules: rules,
@@ -68,15 +67,15 @@ module.exports = {
     port: PORT,
     host: HOST,
     open: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     // Copies the index.html to the built files and inserts the js
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      templateParameters: {
-        baseUrl: '/',
-      },
     }),
   ],
 };

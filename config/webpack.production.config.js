@@ -26,7 +26,7 @@ rules.push({
 module.exports = {
   mode: 'production',
   devtool: 'source-map',
-  entry: { app: './src/index.js' },
+  entry: { app: './src/app.js' },
   output: {
     filename: '[name].[contenthash:8].js',
   },

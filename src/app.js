@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from 'react-router-dom';
 import Ticket from './containers/Ticket/Ticket';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 

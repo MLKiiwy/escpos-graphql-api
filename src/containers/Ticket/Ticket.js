@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import client from '../../client';
+import client from '../../client/index.js';
 
 class Ticket extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Ticket extends Component {
 
   componentDidMount() {
     const { match } = this.props;
-    client.get(`/messages/${match.params.id}`).then(result => {
+    client.get(`/api/messages/${match.params.id}`).then(result => {
       this.setState({
         message: result.data,
       });
