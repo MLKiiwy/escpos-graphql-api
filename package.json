@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "author": "Mikael Labrut",
   "scripts": {
+    "storybook": "start-storybook -p 6006",
     "analyze": "source-map-explorer build/static/js/main.*",
     "start:dev:client": "webpack-dev-server --config ./config/webpack.config.js",
     "start:dev:server": "nodemon src/server.js --exec babel-node",
@@ -20,7 +21,8 @@
     "ticket:print": "node print.js",
     "db:migrate:up": "knex migrate:latest",
     "db:migrate:down": "knex migrate:rollback",
-    "db:migrate:make": "knex migrate:make migration"
+    "db:migrate:make": "knex migrate:make migration",
+    "build-storybook": "build-storybook"
   },
   "lint-staged": {
     "*.js": [
@@ -42,13 +44,14 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
+    "showdown": "^1.8.7",
     "sqlite3": "^4.0.3",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
-    "@sentry/cli": "^1.34.0",
+    "@storybook/react": "^4.0.4",
     "autoprefixer": "^9.0.2",
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
@@ -92,6 +95,9 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "webpack-dev-server": "^3.1.5",
+    "@storybook/addon-actions": "^4.0.4",
+    "@storybook/addon-links": "^4.0.4",
+    "@storybook/addons": "^4.0.4"
   }
 }
