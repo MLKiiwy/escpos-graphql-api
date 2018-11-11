@@ -24,7 +24,7 @@ const print = async path => {
     device.open(async () => {
       try {
         printer.style('NORMAL');
-        printImage(printer, path);
+        await printImage(printer, path);
         printer.close();
         resolves(true);
       } catch (err) {

@@ -7,7 +7,7 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "start:dev:client": "webpack-dev-server --config ./config/webpack.config.js",
     "start:dev:server": "nodemon src/server.js --exec babel-node",
-    "start:server": "node dist/server.js",
+    "start:server": "babel-node src/server.js",
     "prebuild": "rm -rf dist",
     "build:client": "webpack --config ./config/webpack.production.config.js",
     "build:server": "babel src/server.js --out-file ./dist/server.js",

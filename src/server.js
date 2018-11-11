@@ -5,6 +5,7 @@ import cors from 'cors';
 import db from './db';
 import models from './models';
 import ticketGenerator from './ticketGenerator';
+import print from './escpos';
 
 const port = config.get('api.port');
 const { Message } = models(db);
@@ -22,13 +23,15 @@ app.post('/api/messages', async function(req, res) {
   try {
     const msg = await Message.create(req.body);
     const imagePath = await ticketGenerator(msg.id);
-    // await print(imagePath);
+    print(imagePath);
 
     res.status(201).send({
       ...msg,
       imagePath,
     });
   } catch (error) {
+    /* eslint-disable no-console */
+    console.log(error);
     res.status(500).send({ error });
   }
 });
