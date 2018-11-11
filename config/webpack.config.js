@@ -3,6 +3,7 @@ const path = require('path');
 const rules = require('./webpack.rules');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const ConfigWebpackPlugin = require('config-webpack');
 
 const HOST = process.env.HOST || '127.0.0.1';
 const PORT = process.env.PORT || '8888';
@@ -72,6 +73,7 @@ module.exports = {
     },
   },
   plugins: [
+    new ConfigWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     // Copies the index.html to the built files and inserts the js
     new HtmlWebpackPlugin({

@@ -1,4 +1,5 @@
 import { configure } from '@storybook/react';
+import '../src/index.scss';
 
 const storiesContext = require.context(
   '../src',

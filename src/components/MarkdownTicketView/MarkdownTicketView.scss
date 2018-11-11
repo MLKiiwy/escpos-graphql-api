@@ -1,3 +1,9 @@
 .ep-md-ticket-view {
-  background-color: red;
+  max-width: 364px;
+  width: 364px;
+  background-color: white;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  font-family: $sb-primary-font-family;
+  padding: 10px;
 }

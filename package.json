@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "author": "Mikael Labrut",
   "scripts": {
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -s ./assets",
     "analyze": "source-map-explorer build/static/js/main.*",
     "start:dev:client": "webpack-dev-server --config ./config/webpack.config.js",
     "start:dev:server": "nodemon src/server.js --exec babel-node",
@@ -51,6 +51,9 @@
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
+    "@storybook/addon-actions": "^4.0.4",
+    "@storybook/addon-links": "^4.0.4",
+    "@storybook/addons": "^4.0.4",
     "@storybook/react": "^4.0.4",
     "autoprefixer": "^9.0.2",
     "axios": "^0.18.0",
@@ -63,6 +66,7 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "config-webpack": "^1.0.4",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "enzyme": "^3.3.0",
@@ -75,6 +79,7 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.10.0",
     "file-loader": "^1.1.11",
+    "fs-extra": "^7.0.1",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^0.14.3",
     "jest": "^23.4.2",
@@ -95,9 +100,6 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
-    "@storybook/addon-actions": "^4.0.4",
-    "@storybook/addon-links": "^4.0.4",
-    "@storybook/addons": "^4.0.4"
+    "webpack-dev-server": "^3.1.5"
   }
 }

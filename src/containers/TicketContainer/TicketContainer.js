@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import MarkdownTicketView from '../../components/MarkdownTicketView/MarkdownTicketView';
 import client from '../../client/index.js';
 
-class Ticket extends Component {
+class TicketContainer extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -21,8 +22,8 @@ class Ticket extends Component {
 
   render() {
     const { message } = this.state;
-    return <div className="ep-ticket">{message && message.content}</div>;
+    return message && <MarkdownTicketView content={message.content} />;
   }
 }
 
-export default Ticket;
+export default TicketContainer;

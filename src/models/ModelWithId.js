@@ -51,7 +51,7 @@ export default class ModelWithId {
     return toOneModel(
       await this.table()
         .column(returning || this.fields)
-        .orderBy('id', 'desc')
+        .orderBy('created_at', 'desc')
         .limit(1)
         .select()
     );

@@ -1,15 +1,18 @@
 import puppeteer from 'puppeteer';
 import { resolve } from 'path';
+import config from 'config';
 
 export default async messageId => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto(`http://127.0.0.1:3000/#/${messageId}`);
+  await page.goto(`http://localhost:${config.get('api.port')}/#/${messageId}`);
   page.setViewport({
-    width: 384, // Max width of a ticket print on a thermal printer (see spec of ZJ-58)
-    height: 100,
+    width: config.get('printer.viewport.width'),
+    height: 10, // Don't care here its infinite
   });
-  const imagePath = resolve(__dirname + '/../../ticket.png');
+  const imagePath = resolve(
+    `${config.get('database.generatedTicketPath')}/${messageId}.png`
+  );
   await page.screenshot({
     fullPage: true,
     path: imagePath,

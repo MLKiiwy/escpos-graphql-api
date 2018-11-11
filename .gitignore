@@ -189,6 +189,6 @@ Temporary Items
 
 # Custom
 dist/
-src/env.js
 junit.xml
-ticket.png
+database/data.sqlite
+database/tickets/*.png

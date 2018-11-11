@@ -22,7 +22,7 @@ defineFeature(feature, test => {
     );
 
     when(
-      /^I send a "(\w+)" request to "([a-zA-Z0-9\/\-]+)"/,
+      /^I send a "(\w+)" request to "([a-zA-Z0-9/-]+)"/,
       async (method, url) => {
         result = await client.request({
           method,

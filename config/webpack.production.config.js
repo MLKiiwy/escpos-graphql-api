@@ -3,6 +3,7 @@ const rules = require('./webpack.rules');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const ConfigWebpackPlugin = require('config-webpack');
 
 rules.push({
   test: /\.(css|scss)$/,
@@ -49,6 +50,7 @@ module.exports = {
     },
   },
   plugins: [
+    new ConfigWebpackPlugin(),
     // Pulls all imported css into a separate css file.
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',

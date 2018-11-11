@@ -4,9 +4,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import db from './db';
 import models from './models';
-import screenshot from './screenshot';
+import ticketGenerator from './ticketGenerator';
 
-const port = config.get('port');
+const port = config.get('api.port');
 const { Message } = models(db);
 const app = express();
 
@@ -19,11 +19,18 @@ app.get('/api/messages/:id', async function(req, res) {
 });
 
 app.post('/api/messages', async function(req, res) {
-  const msg = await Message.create(req.body);
-  const imagePath = await screenshot(msg.id);
-  // await print(imagePath);
+  try {
+    const msg = await Message.create(req.body);
+    const imagePath = await ticketGenerator(msg.id);
+    // await print(imagePath);
 
-  res.status(201).send(imagePath);
+    res.status(201).send({
+      ...msg,
+      imagePath,
+    });
+  } catch (error) {
+    res.status(500).send({ error });
+  }
 });
 
 app.listen(port);

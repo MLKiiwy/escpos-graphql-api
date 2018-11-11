@@ -1,4 +1,6 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
+import fs from 'fs-extra';
+import config from 'config';
 import { countEntity, countEntityWith } from '../tools/database';
 import { beforeFunctionnalTest } from '../tools/functionnal';
 import client from '../tools/client';
@@ -37,6 +39,23 @@ defineFeature(feature, test => {
       expect(result.status).toEqual(parseInt(code, 10));
     });
 
+    then(/^the response should be in JSON/, () => {
+      // TODO
+    });
+
+    then(/^the response should have a field "(\w+)" of type "(\w+)"/, field => {
+      expect(result.content).toHaveProperty(field);
+      // TODO
+    });
+
+    then(
+      /^the response should have a field "(\w+)" equal to "(\w+)"/,
+      (field, value) => {
+        expect(result.content).toHaveProperty(field);
+        expect(result.content[field]).toEqual(value);
+      }
+    );
+
     then(
       /^should be (\d+) (\w+) in database like:/,
       async (count, entity, content) => {
@@ -45,5 +64,13 @@ defineFeature(feature, test => {
         );
       }
     );
+
+    then(/^should be 1 ticket generated with response id/, () => {
+      const id = result.content.id;
+      const filePath = `${config.get(
+        'database.generatedTicketPath'
+      )}/${id}.png`;
+      expect(fs.ensureFile(filePath)).toBeTruthy();
+    });
   });
 });
