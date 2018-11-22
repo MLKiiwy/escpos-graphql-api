@@ -50,6 +50,7 @@ ssh-add ~/.ssh/id_rsa
 sudo dpkg-reconfigure locales
 
 sudo apt-get install git-core zsh curl
+sudo apt-get install build-essential libudev-dev
 git config --global user.email "myemail@gmail.com"
 git config --global user.name "My name"
 
@@ -85,6 +86,11 @@ sudo service cups status
 
 In case of failure, check config (/etc/cups/cupsd.conf)
 And restart (sudo service cups restart)
+
+
+#### Start cups webinterface
+
+Execute : [./scripts/start_cups.sh](./scripts/start_cups.sh)
 
 ##### Via network (raspbian)
 

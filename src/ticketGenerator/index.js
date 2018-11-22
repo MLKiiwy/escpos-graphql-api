@@ -3,7 +3,9 @@ import { resolve } from 'path';
 import config from 'config';
 
 export default async messageId => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser',
+  });
   const page = await browser.newPage();
   await page.goto(`http://localhost:${config.get('api.port')}/#/${messageId}`);
   page.setViewport({
