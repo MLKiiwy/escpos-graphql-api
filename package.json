@@ -5,12 +5,13 @@
   "scripts": {
     "storybook": "start-storybook -p 6006 -s ./assets",
     "analyze": "source-map-explorer build/static/js/main.*",
-    "start:dev:client": "webpack-dev-server --config ./config/webpack.config.js",
+    "start:dev:client": "webpack-dev-server --config ./config/webpack.config.client.js",
     "start:dev:server": "nodemon src/server.js --exec babel-node",
-    "start:server": "babel-node src/server.js",
+    "start:server": "node dist/server.js",
     "prebuild": "rm -rf dist",
-    "build:client": "webpack --config ./config/webpack.production.config.js",
-    "build:server": "babel src/server.js --out-file ./dist/server.js",
+    "build:client": "webpack --config ./config/webpack.production.config.client.js",
+    "build:server": "webpack --config ./config/webpack.production.config.server.js",
+    "build:server2": "babel src/server.js --out-file ./dist/server.js",
     "test": "jest --config ./config/jest.config.json --color --runInBand",
     "test:watch": "jest --config ./config/jest.config.json --watch",
     "precommit": "lint-staged",
@@ -30,6 +31,7 @@
     ]
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
@@ -100,6 +102,7 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "webpack-dev-server": "^3.1.5",
+    "webpack-node-externals": "^1.7.2"
   }
 }
