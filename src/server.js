@@ -16,6 +16,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('dist'));
 
+app.get('/api/healthcheck', function(req, res) {
+  res.status(200).send({});
+});
+
 app.get('/api/messages/:id', async function(req, res) {
   res.status(200).send(await Message.getById(req.params.id));
 });
