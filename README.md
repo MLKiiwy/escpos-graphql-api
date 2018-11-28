@@ -160,3 +160,18 @@ udevadm info /path/of/usb/printer
 lsusb -vvv
 ```
 
+## Start service on raspberry-pi
+
+Warning: need to modify [escpos-api.service(./config/escpos-api.service)] because path is absolute
+
+```bash
+./script/install_api
+```
+
+### Monitor
+
+```bash
+sudo systemctl status escpos-api.service
+```
+
+Or use the /healthcheck endpoint
