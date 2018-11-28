@@ -50,6 +50,7 @@ ssh-add ~/.ssh/id_rsa
 sudo dpkg-reconfigure locales
 
 sudo apt-get install git-core zsh curl
+sudo apt-get install build-essential libudev-dev
 git config --global user.email "myemail@gmail.com"
 git config --global user.name "My name"
 
@@ -86,6 +87,11 @@ sudo service cups status
 In case of failure, check config (/etc/cups/cupsd.conf)
 And restart (sudo service cups restart)
 
+
+#### Start cups webinterface
+
+Execute : [./scripts/start_cups.sh](./scripts/start_cups.sh)
+
 ##### Via network (raspbian)
 
 Then goto : http://rasbperry-ip:631
@@ -102,6 +108,18 @@ Choose Zikiang in devices and zj-58.
 
 Your printer should be installed, you can test it with the button "test page".
 
+## Install chromium on raspberry pi
+
+```bash
+sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+
+
+wget http://launchpadlibrarian.net/361669485/chromium-browser_65.0.3325.181-0ubuntu0.14.04.1_armhf.deb; sudo dpkg -i chromium-browser_65.0.3325.181-0ubuntu0.14.04.1_armhf.deb
+
+wget http://launchpadlibrarian.net/361689926/chromium-codecs-ffmpeg_65.0.3325.181-0ubuntu0.16.04.1_armhf.deb; sudo dpkg -i chromium-codecs-ffmpeg_65.0.3325.181-0ubuntu0.16.04.1_armhf.deb
+
+sudo apt-get --fix-broken install
+```
 
 ## Troubleshouting
 
@@ -109,6 +127,18 @@ Your printer should be installed, you can test it with the button "test page".
 
 You have a permission error for accessing the printer.
 Check permissions on : ls -la /dev/usb
+
+Solution :
+Add your user to the group "lp"
+
+```bash
+sudo adduser pi lp
+```
+
+And logout/login again.
+
+---
+To check :
 
 If permissions are not good, you need to add a new udev rule.
 Edit a file in /etc/udev/rules.d/.
@@ -130,3 +160,18 @@ udevadm info /path/of/usb/printer
 lsusb -vvv
 ```
 
+## Start service on raspberry-pi
+
+Warning: need to modify [escpos-api.service(./config/escpos-api.service)] because path is absolute
+
+```bash
+./script/install_api
+```
+
+### Monitor
+
+```bash
+sudo systemctl status escpos-api.service
+```
+
+Or use the /healthcheck endpoint
