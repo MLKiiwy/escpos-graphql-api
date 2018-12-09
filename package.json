@@ -4,26 +4,23 @@
   "author": "Mikael Labrut",
   "scripts": {
     "storybook": "start-storybook -p 6006 -s ./assets",
-    "analyze": "source-map-explorer build/static/js/main.*",
+    "build-storybook": "build-storybook",
     "start:dev:client": "webpack-dev-server --config ./config/webpack.config.client.js",
     "start:dev:server": "nodemon src/server.js --exec babel-node",
     "start:server": "node dist/server.js",
     "prebuild": "rm -rf dist",
     "build:client": "webpack --config ./config/webpack.production.config.client.js",
     "build:server": "webpack --config ./config/webpack.production.config.server.js",
-    "build:server2": "babel src/server.js --out-file ./dist/server.js",
     "test": "jest --config ./config/jest.config.json --color --runInBand",
     "test:watch": "jest --config ./config/jest.config.json --watch",
     "precommit": "lint-staged",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "commitmsg": "commitlint --config ./config/commitlint.config.js -E GIT_PARAMS",
-    "ticket:generate": "node screenshot.js",
-    "ticket:print": "node print.js",
     "db:migrate:up": "knex migrate:latest",
     "db:migrate:down": "knex migrate:rollback",
     "db:migrate:make": "knex migrate:make migration",
-    "build-storybook": "build-storybook"
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "lint-staged": {
     "*.js": [

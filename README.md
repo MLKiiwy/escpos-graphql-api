@@ -1,177 +1,45 @@
-# escpos-grphql-api
+# escpos-graphql-api
 
-A graphql api to control an "autonomous" thermal printer
+A rest and graphql api to control an "autonomous" thermal printer.
 
 ## Install
 
-```bash
-yarn start
-```
+[Follow installation guide.](./docs/Installation.md)
 
-## Install ESCPOS printer on a raspberry pie
+## Configuration
 
-### Get a raspberry pie working
+Configuration for the app is defined in `config/default.json`. 
 
-1. Download image 
+## Run 
 
-On https://www.raspberrypi.org/downloads/raspbian/ 
--> Take the LITE version (without X-Server)
-
-1. Create SD Card 
-
-Use https://etcher.io/
-
-3. Insert card into raspberry and turn it on. Search rasberry on network
-4. Connect to raspberry pie with pass *raspberry*
+### Service run
 
 ```bash
-ssh pi@rasberry-ip
+sudo systemctl start escpos-api.service
 ```
 
-1. Configure it
-
-Execute 
-```ssh
-sudo raspi-config
-```
-Do first option 'expand partition', now filesystem available will be on all the SD card !
-
-2. Create an ssh key and add it to github
+### Standalone run
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-ssh-add ~/.ssh/id_rsa
+yarn start:server
 ```
 
-3. Install Git, NVM, yarn
+## Monitor
 
-```bash
-#reconfig locales
-sudo dpkg-reconfigure locales
-
-sudo apt-get install git-core zsh curl
-sudo apt-get install build-essential libudev-dev
-git config --global user.email "myemail@gmail.com"
-git config --global user.name "My name"
-
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-nvm install lts/carbon
-
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update && sudo apt-get install yarn
-```
-
-### Install ESCPOS Printer for zj-58 cheap printer (chinese one)
-
-See [complete doc](http://scruss.com/blog/2015/07/12/thermal-printer-driver-for-cups-linux-and-raspberry-pi-zj-58/)
-
-#### Install drivers
-Execute : [./scripts/install_drivers.sh](./scripts/install_drivers.sh)
-
-#### Setup CUPS
-If you are on raspbian, execute [./scripts/install_printer_raspberry.sh](./scripts/install_printer_raspberry.sh)
-Otherwise, adapt : 
-```bash
-sudo usermod -a -G lpadmin YOUR_USER
-```
-
-#### Add printer on cups
-
-Check that cups run.
-
-```bash
-sudo service cups status
-```
-
-In case of failure, check config (/etc/cups/cupsd.conf)
-And restart (sudo service cups restart)
-
-
-#### Start cups webinterface
-
-Execute : [./scripts/start_cups.sh](./scripts/start_cups.sh)
-
-##### Via network (raspbian)
-
-Then goto : http://rasbperry-ip:631
-
-Click on add printer and follow instruction
-(Choose printer "unknow" and brand "Zikiang")
-
-Your printer should be installed, you can test it with the button "test page".
-
-##### On ubuntu
-
-Do add a printer in settings. 
-Choose Zikiang in devices and zj-58.
-
-Your printer should be installed, you can test it with the button "test page".
-
-## Install chromium on raspberry pi
-
-```bash
-sudo apt-get install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
-
-
-wget http://launchpadlibrarian.net/361669485/chromium-browser_65.0.3325.181-0ubuntu0.14.04.1_armhf.deb; sudo dpkg -i chromium-browser_65.0.3325.181-0ubuntu0.14.04.1_armhf.deb
-
-wget http://launchpadlibrarian.net/361689926/chromium-codecs-ffmpeg_65.0.3325.181-0ubuntu0.16.04.1_armhf.deb; sudo dpkg -i chromium-codecs-ffmpeg_65.0.3325.181-0ubuntu0.16.04.1_armhf.deb
-
-sudo apt-get --fix-broken install
-```
-
-## Troubleshouting
-
-### Error LIBUSB_ERROR_ACCESS
-
-You have a permission error for accessing the printer.
-Check permissions on : ls -la /dev/usb
-
-Solution :
-Add your user to the group "lp"
-
-```bash
-sudo adduser pi lp
-```
-
-And logout/login again.
-
----
-To check :
-
-If permissions are not good, you need to add a new udev rule.
-Edit a file in /etc/udev/rules.d/.
-
-For example /etc/udev/rules.d/50-myusb.rules :
-
-```
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5011", GROUP="users", MODE="0666"
-```
-
-You can find vendor and product id by using, these commands :
-```bash
-# Find usb bus of printer
-find /dev/bus/usb/ '!' -type d -mmin -25
-# Pass the file to 
-udevadm info /path/of/usb/printer
-
-# Or use this command :
-lsusb -vvv
-```
-
-## Start service on raspberry-pi
-
-Warning: need to modify [escpos-api.service(./config/escpos-api.service)] because path is absolute
-
-```bash
-./script/install_api
-```
-
-### Monitor
+### Check service is running
 
 ```bash
 sudo systemctl status escpos-api.service
 ```
 
-Or use the /healthcheck endpoint
+### Check API is running 
+
+Use the /healthcheck endpoint.
+
+## Troubleshouting
+
+If you have any trouble check here [Troubleshouting.md](./docs/Troubleshouting.md).
+
+## Contributing
+
+If you would like to contribute, please check out [CONTRIBUTING.md](./docs/Contributing.md).
